@@ -16,18 +16,15 @@ export class MessageService {
     private httpClient: HttpClient
   ) { }
 
-
-
-
-  public sendMessage(msg : Message) : Observable<number> {
-    return this.httpClient.post<number>(environment.url+"message/post", msg)
+  public sendMessage(idChat : number, msg : Message) : Observable<number> {
+    return this.httpClient.post<number>(environment.url+idChat+"/create", msg)
     .pipe(
       tap(_ => console.log('Message posted'))
     );
   }
 
-  public getMessage(id : number) : Observable<string>{
-    return this.httpClient.get<string>(environment.url+"message/"+id)
+  public getMessage(idChat : number,id : number) : Observable<string>{
+    return this.httpClient.get<string>(environment.url+"/chat/"+idChat+"message/"+id)
     .pipe(
       tap(_ => console.log('Message fetched'))
     );
