@@ -1,27 +1,57 @@
-# CryptoChat
+# CryptoChat - Plateforme de messagerie sécurisée
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
+## Description
+CryptoChat est une application de messagerie instantanée sécurisée développée dans le cadre d'un projet d'école d'ingénierie informatique. Elle permet aux utilisateurs de créer des canaux de discussion sécurisés où les messages sont cryptés côté serveur.
 
-## Development server
+## Technologies utilisées
+- **Backend**: Python avec le framework Flask pour la gestion des routes et la logique serveur.
+- **Authentification et Stockage**: Utilisation de Firebase Realtime Database via Pyrebase pour gérer l'authentification des utilisateurs et le stockage des données.
+- **Frontend**: Angular, un framework moderne pour construire des interfaces utilisateur dynamiques.
+- **Cryptographie**: Cryptage des messages côté serveur pour assurer la confidentialité et l'intégrité des communications.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Installation
 
-## Code scaffolding
+### Prérequis
+Avant de démarrer l'installation, assurez-vous que Python et Node.js sont installés sur votre machine. Vous aurez également besoin de npm pour gérer les paquets Node.js.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation des dépendances
+Pour installer les dépendances nécessaires, exécutez les commandes suivantes :
 
-## Build
+### Installer les dépendances Python
+pip install -r requirements.txt
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Installer les dépendances Angular
+cd frontend  # Remplacer par le chemin de votre répertoire frontend
+npm install
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Démarrage de l'application
 
-## Running end-to-end tests
+### Serveur Backend Flask
+Pour démarrer le serveur backend, exécutez :
+python run.py
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Application Angular
+Pour lancer l'interface utilisateur :
+ng serve
+ 
+Accédez ensuite à http://localhost:4200 dans votre navigateur pour utiliser l'application.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Fonctionnement de l'application
+
+## Sécurité
+Les messages sont cryptés côté serveur avant d'être stockés dans Firebase
+
+## Structure du projet
+
+# Le projet est structuré comme suit :
+
+backend/ : Contient le code Flask, les modèles et les services.
+frontend/ : Contient les fichiers Angular pour l'interface utilisateur.
+models/ : Définitions des modèles de données pour les utilisateurs et les messages.
+
+## Points clés du code
+# Modèle utilisateur
+
+Chaque utilisateur est représenté par une instance de la classe User, qui stocke le nom d'utilisateur, l'email et le mot de passe crypté.
