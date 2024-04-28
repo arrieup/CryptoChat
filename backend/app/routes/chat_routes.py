@@ -53,7 +53,7 @@ def load_user_from_token():
 
 
 ### Vérifié
-@chat_blueprint.route('/create', methods=['POST'])
+@chat_blueprint.route('create', methods=['POST'])
 @cross_origin()
 def create_chat():
     response = load_user_from_token()
@@ -69,28 +69,49 @@ def create_chat():
     else:
         return jsonify({"error": "Échec de l'ajout du chat"}), 500
 
+
+
 @chat_blueprint.route('<chat_id>/read', methods=['GET'])
 @cross_origin()
-def read_chat(chat_id):
+def get_chat(chat_id):
+    response = load_user_from_token()
+    if response is not None:
+        return response
+    chat : Chat = chat_service.get_chat(chat_id)
+    print(chat['Messages'])
+    chat['Messages'] = []
+    return jsonify(chat)
+
+### Vérifié
+@chat_blueprint.route('<chat_id>/messages/read', methods=['GET'])
+@cross_origin()
+def get_message(chat_id):
     response = load_user_from_token()
     if response is not None:
         return response
     messages = chat_service.get_messages(chat_id)
-    decrypted_messages = [{
-        "Sender": message.Sender.to_dict(), 
-        "Content": crypto_service.decrypt(message.Content)
-    } for message in messages]
+    decrypted_messages = []
+    for message in messages:
+        try:
+            decrypted_content = crypto_service.decrypt(message['Content'])
+            decrypted_message = {
+                "Sender": message['Sender'],
+                "Content": decrypted_content
+            }
+            decrypted_messages.append(decrypted_message)
+        except Exception as e:
+            current_app.logger.error(f"Error decrypting message: {str(e)}")
+            decrypted_messages.append({"error": "Error decrypting message"})
     return jsonify(decrypted_messages), 200
 
-
-@chat_blueprint.route('<chat_id>/create/', methods=['POST'])
+### Vérifié
+@chat_blueprint.route('<chat_id>/messages/create/', methods=['POST'])
 @cross_origin()
 def add_message(chat_id):
     # Charger l'utilisateur à partir du token
     response = load_user_from_token()
     if response:
         return response
-
     data = request.json
     if 'Content' not in data:
         return jsonify({'error': 'Message content is required'}), 400
@@ -98,9 +119,9 @@ def add_message(chat_id):
     user_data = get_user_data_from_id(g.user['uid'])
     if not user_data:
         return jsonify({'error': 'User not found'}), 404
-    print(user_data)
     user = User(Username=user_data['email'], Email=user_data['email'])
     encrypted_content = crypto_service.encrypt(data['Content'])
+    print(encrypted_content)
     
     new_message = Message(Id="",Sender=user, Content=encrypted_content)
     message_id = chat_service.add_message(chat_id, new_message)
@@ -110,21 +131,9 @@ def add_message(chat_id):
         return jsonify({"error": "Failed to add message"}), 500
     
     
-@chat_blueprint.route('<chat_id>/read_messages/', methods=['GET'])
-@cross_origin()
-def get_messages(chat_id):
-    messages = chat_service.get_messages(chat_id)
-    decrypted_messages = [{
-        "Sender": message.sender.to_dict(), 
-        "Content": crypto_service.decrypt(message.content)
-    } for message in messages]
-    return jsonify(decrypted_messages), 200
 
 
 @chat_blueprint.route("/all", methods=['GET'])
 @cross_origin()
 def get_all_chats():
-    chats = []
-    # for chat in database:
-    #     chats.append(chat.toDict())
-    return chats
+    return chat_service.get_chats()
