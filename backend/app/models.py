@@ -40,7 +40,7 @@ class Chat:
             'Name': self.Name, 
             'Password': self.Password, 
             'Creator': self.Creator.toDict(), 
-            'Message': msg_dict
+            'Messages': msg_dict
     }
 
   def addMessage(self,Msg : Message ):
