@@ -1,16 +1,18 @@
 import datetime
+from hashlib import sha256
 from flask import Flask, Blueprint, app, current_app, jsonify, request, g
 from flask_cors import CORS, cross_origin
 from firebase_admin import auth as firebase_auth
 from firebase_admin import auth, exceptions
-
+from itsdangerous import URLSafeTimedSerializer
+from flask import url_for, current_app
 from app.models.user import User
 from app.models.message import Message
 from app.models.chat import Chat
 from app.services.firebase_service import ChatService 
 from app.services.crypto_service import CryptoService
 from app.firebase_config import firebase_app
-
+from flask import current_app
 chat_blueprint = Blueprint('chat', __name__, url_prefix='/chat')
 CORS(chat_blueprint)
 chat_service = ChatService(firebase_app)  
@@ -51,6 +53,11 @@ def load_user_from_token():
         return jsonify({'error': 'Invalid token: ' + str(e)}), 401
 
 
+def generate_secure_link(chat_id):
+    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+    token = serializer.dumps(chat_id, salt='chat_access')
+    return url_for('chat.join_chat', token=token, _external=True)
+
 
 ### Vérifié
 @chat_blueprint.route('create', methods=['POST'])
@@ -63,12 +70,29 @@ def create_chat():
     r_Name = request.json['Name']
     r_Password = request.json['Password']
     r_Creator = User(request.json['Creator'].get('Username'),request.json['Creator'].get('Email'))
-    data = Chat(r_Id,r_Name,r_Password, r_Creator,[], [r_Creator])
-    if chat_service.add_chat(data):
-        return jsonify({"success": True, "chat_id": str(data.Id)}), 201
+    chat = Chat(r_Id, r_Name, r_Password, r_Creator, [], [r_Creator])
+    chat_id = chat_service.add_chat(chat)
+    if chat_id:
+        link = generate_secure_link(chat_id)
+        return jsonify({"success": True, "chat_id": str(chat.Id), "link": link}), 201
     else:
         return jsonify({"error": "Échec de l'ajout du chat"}), 500
 
+
+@chat_blueprint.route('/join/<token>', methods=['POST'])
+@cross_origin()
+def join_chat(token):
+    try:
+        serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+        chat_id = serializer.loads(token, salt='chat_access', max_age=3600)
+        chat_password = request.json['Password']
+        chat = chat_service.get_chat(chat_id)
+        if sha256(chat_password.encode('utf-8')).hexdigest() == chat['Password']:
+            return jsonify({"success": True, "chat": chat}), 200
+        else:
+            return jsonify({"error": "Invalid password"}), 403
+    except:
+        return jsonify({"error": "Invalid or expired token"}), 400
 
 
 @chat_blueprint.route('<chat_id>/read', methods=['GET'])
