@@ -1,0 +1,9 @@
+<div style="background-color: lightcoral; color: black;">
+    <h3>{{this.Chat.Name}}</h3>
+    <h4>{{this.Chat.Creator.Username != undefined ? this.Chat.Creator.Username : ""}}</h4>
+    <button mat-button (click)="getMessage()">Charger</button>
+    <ul *ngFor="let msg of this.Chat.Messages">
+        <app-message [Message]="msg"></app-message>
+    </ul>
+
+</div>

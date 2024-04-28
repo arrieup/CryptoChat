@@ -2,12 +2,12 @@ import { Message } from "./message.model";
 import { User } from "./user.model";
 
 export class Chat {
-    private Id : string;
+    public Id : string;
     public Name : string;
     public Password : string;
     public Creator : User;
     public Members : Array<User>;
-    private Messages : Array<Message>;
+    public Messages : Array<Message>;
 
 
     public constructor (id? : string, name? : string, password? : string, creator? : User, members? : Array<User>, messages? : Array<Message>) {
@@ -26,7 +26,7 @@ export class Chat {
         });
     }
 
-    public GetMessages(){
+    public GetMessages() : Array<Message>{
         return this.Messages;
     }
     public SetMessages(messages : Array<Message>){

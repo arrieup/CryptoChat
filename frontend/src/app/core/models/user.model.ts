@@ -3,7 +3,7 @@ export class User {
     public Password : string;
 
     public constructor (username? : string, password? : string) {
-        this.Username = username != undefined ? username :"";
+        this.Username = username != undefined ? username : "";
         this.Password = password != undefined ? password : "";
     }
 }
