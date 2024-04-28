@@ -15,7 +15,6 @@ export class ChatComponent {
   @Input() Chat : Chat = new Chat("-NwZpZBKy1wO6vT3CgLF");
 
   constructor(private connexionService : ConnexionService, private messageService : MessageService){
-    this.getChat()
   }
 
   public getChat() {

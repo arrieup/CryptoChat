@@ -78,7 +78,6 @@ def get_chat(chat_id):
     if response is not None:
         return response
     chat : Chat = chat_service.get_chat(chat_id)
-    print(chat['Messages'])
     chat['Messages'] = []
     return jsonify(chat)
 
