@@ -1,0 +1,9 @@
+
+<ul *ngFor="let msg of Chat.GetMessages()">
+    <li>
+        {{msg.Sender.Username}}
+    </li>
+    <li>
+        {{msg.Content}}
+    </li>
+</ul>
