@@ -12,6 +12,7 @@ def create_app():
 
     CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type'
+    app.config['SECRET_KEY'] = 'SECRET_KEY'
 
     # Initialisation des services
     firebase_config = firebase_config_module.firebase_config
