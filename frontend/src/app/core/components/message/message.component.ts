@@ -11,8 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.sass'],
-  standalone: true,
-  imports : [MatCardModule, MatButtonModule]
 })
 export class MessageComponent {
   @Input() public Message : Message = new Message()

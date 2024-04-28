@@ -23,6 +23,7 @@ import { RegisterComponent } from './core/components/register/register.component
     declarations: [
         AppComponent,
         ChatComponent,
+        MessageComponent,
         LoginComponent,
         RegisterComponent
     ],
@@ -40,8 +41,7 @@ import { RegisterComponent } from './core/components/register/register.component
         MatButtonModule,
         MatMenuModule,
         MatFormFieldModule,
-        HttpClientModule,
-        MessageComponent
+        HttpClientModule
     ]
 })
 export class AppModule { }
