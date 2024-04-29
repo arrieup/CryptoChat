@@ -1,21 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Chat } from '../../models/chat.model';
-import { ConnexionService } from '../../services/connexion.service';
-import { MessageService } from '../../services/message.service';
 import { Message } from '../../models/message.model';
 import { User } from '../../models/user.model';
+import { ConnexionService } from '../../services/connexion.service';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.sass']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class HomePage {
+export class HomeComponent {
+  private breakpointObserver = inject(BreakpointObserver);
 
+  
   chatList : Array<Chat> = [];
   selectedChat: Chat = new Chat();
   sidenavState : boolean = true;
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+    
+  
   public constructor(private connexionService : ConnexionService, private messageService : MessageService){
     messageService.getAllChats().subscribe(
       chats => this.chatList = chats

@@ -1,5 +1,4 @@
 <div class="chat-container"  *ngIf="Chat.Name!=''">
-    <h2>{{ Chat.Name }}</h2>
     <ul class="message-list">
         <li *ngFor="let message of Chat.Messages">{{ message }}</li>
     </ul>

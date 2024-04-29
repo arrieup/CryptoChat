@@ -23,10 +23,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
 import { ConnexionPage } from './core/pages/connexion/connexion.page';
-import { HomePage } from './core/pages/home/home.page';
 import { ChatListComponent } from './core/components/chat-list/chat-list.component';
 import { MatListModule } from '@angular/material/list';
 import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
+import { HomeComponent } from './core/pages/home/home.component';
 
 @NgModule({
     declarations: [
@@ -36,9 +36,9 @@ import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
         LoginComponent,
         RegisterComponent,
         ConnexionPage,
-        HomePage,
         ChatListComponent,
-        ToolbarComponent
+        ToolbarComponent,
+        HomeComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
