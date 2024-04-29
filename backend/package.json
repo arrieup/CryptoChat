@@ -1,0 +1,10 @@
+{
+    "name": "crypto-chat-backend",
+    "version": "1.0.0",
+    "description": "Your Flask application",
+    "scripts": {
+      "start": "cd .venv/Scripts && activate && cd ../.. && python run.py"
+    },
+    "devDependencies": {},
+    "author": "Pablo Arrieumerlou, Elise Boillat"
+  }
