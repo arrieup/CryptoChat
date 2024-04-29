@@ -1,11 +1,23 @@
-<div style="background-color: lightcoral; color: black;">
-    <h3>{{this.Chat.Name}}</h3>
-    <h4>{{this.Chat.Creator.Username != undefined ? this.Chat.Creator.Username : ""}}</h4>
-    
-    <button mat-button (click)="getChat()">Initialise</button>
-    <button mat-button (click)="getMessage()">Charger</button>
-    <ul *ngFor="let msg of this.Chat.Messages">
-        <app-message [Message]="msg"></app-message>
+<div class="chat-container"  *ngIf="Chat.Name!=''">
+    <h2>{{ Chat.Name }}</h2>
+    <ul class="message-list">
+        <li *ngFor="let message of Chat.Messages">{{ message }}</li>
     </ul>
+    <button mat-raised-button #tooltip="matTooltip"
+        matTooltip="Created by {{Chat.Creator}}."
+        matTooltipPosition="left"
+        matTooltipHideDelay="100000"
+        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+        class="example-button">
+        I
+    </button>
+    <div *ngIf="complementaryState" class="complementary-info">
+        <p>Created by {{ Chat.Creator}}.</p>
 
+    </div>
+    <div class="form-group">
+        <label for="content">Message:</label>
+        <textarea id="content" [(ngModel)]="newMessage.Content" placeholder="Type your message here..."></textarea>
+      </div>
+      <button (click)="sendMessage()">Send</button>
 </div>

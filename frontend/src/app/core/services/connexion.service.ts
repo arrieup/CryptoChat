@@ -2,6 +2,7 @@ import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { User } from '../models/user.model';
 
 
 @Injectable({
@@ -19,34 +20,21 @@ export class ConnexionService {
     private httpClient: HttpClient
   ) { }
 
-  public getTime() : Observable<any>{
-    return this.httpClient.get<any>(environment.url)
-    .pipe(
-      tap(_ => console.log('Time fetched'))
-    );
-  }
+  public static currentUser : User = new User()
 
-  public login(email : string, password : string) {
+  public login(email : string, password : string) : Observable<any>{
     let body = {"Email": email, "Password": password}
-    this.httpClient.post<any>(environment.url+"user/login", body, ConnexionService.httpOptions)
+    return this.httpClient.post<any>(environment.url+"user/login", body)
     .pipe(
       tap(_ => console.log('Login successful'))
     )
-    .subscribe(
-      data => {
-        const updatedHeaders = ConnexionService.httpOptions.headers.set('Authorization', 'Bearer ' + data['user']['idToken']);
-        ConnexionService.httpOptions = { headers : updatedHeaders};
-      }
-    )
   }
 
-  public register(email : string, password : string) {
+  public register(email : string, password : string) : Observable<any>{
     let body = {"Email": email, "Password": password}
-    this.httpClient.post<any>(environment.url+"user/register", body, ConnexionService.httpOptions).subscribe(
-      data => {
-        const updatedHeaders = ConnexionService.httpOptions.headers.set('Authorization', 'Bearer ' + data['user']['idToken']);
-        ConnexionService.httpOptions = { headers : updatedHeaders};
-      }
+    return this.httpClient.post<any>(environment.url+"user/register", body)
+    .pipe(
+      tap(_ => console.log('Register successful'))
     )
   }
 }

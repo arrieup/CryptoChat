@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,8 +17,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MessageComponent } from "./core/components/message/message.component";
 import { ChatComponent } from './core/components/chat/chat.component';
 import { LoginComponent } from './core/components/login/login.component';
-import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './core/components/register/register.component';
+
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
+import { ConnexionPage } from './core/pages/connexion/connexion.page';
+import { HomePage } from './core/pages/home/home.page';
+import { ChatListComponent } from './core/components/chat-list/chat-list.component';
+import { MatListModule } from '@angular/material/list';
+import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
 
 @NgModule({
     declarations: [
@@ -25,13 +34,17 @@ import { RegisterComponent } from './core/components/register/register.component
         ChatComponent,
         MessageComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ConnexionPage,
+        HomePage,
+        ChatListComponent,
+        ToolbarComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
     imports: [
-        FormsModule,
         BrowserModule,
+        FormsModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         MatInputModule,
@@ -41,7 +54,19 @@ import { RegisterComponent } from './core/components/register/register.component
         MatButtonModule,
         MatMenuModule,
         MatFormFieldModule,
-        HttpClientModule
+        HttpClientModule,
+        MatInputModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatListModule,
+        MatFormFieldModule,
+        MatSidenavModule,
+        MatSlideToggleModule,
+        HttpClientModule,
+        MatTooltipModule,
     ]
 })
 export class AppModule { }

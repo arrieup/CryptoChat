@@ -36,6 +36,7 @@ export class MessageService {
   }
 
   public getChat(id : string) : Observable<Chat>{
+    console.log(id)
     return this.httpClient.get<Chat>(environment.url+"chat/"+id+"/read", ConnexionService.httpOptions)
     .pipe(
       tap(_ => console.log('Message fetched'))

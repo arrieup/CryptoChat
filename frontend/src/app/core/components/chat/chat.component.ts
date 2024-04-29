@@ -12,29 +12,37 @@ import { User } from '../../models/user.model';
 })
 export class ChatComponent {
 
-  @Input() Chat : Chat = new Chat("-NwZpZBKy1wO6vT3CgLF");
+  @Input() Chat : Chat = new Chat();
+
+  complementaryState : boolean = false;
+
+  newMessage: Message = new Message();
 
   constructor(private connexionService : ConnexionService, private messageService : MessageService){
   }
+  public toggleComplementaryInfo() {
+    this.complementaryState = !this.complementaryState;
+  }
+
 
   public getChat() {
     this.messageService.getChat(this.Chat.Id).subscribe(
       chat => {
-        console.log(chat)
+        console.log("init")
         this.Chat = chat;
       }
     );
   }
 
   public sendMessage() {
-    this.messageService.sendChatMessage(this.Chat.Id, new Message("ad123",new User("Pablo","pwd"),"Bonjour la mif")).subscribe(
+    this.messageService.sendChatMessage(this.Chat.Id, this.newMessage).subscribe(
       ret => {
         console.log(ret)
       }
     );
   }
 
-  public getMessage() {
+  public getMessages() {
     this.messageService.getChatMessages(this.Chat.Id).subscribe(
       chatMessages => {
         this.Chat.Messages = chatMessages

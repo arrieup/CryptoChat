@@ -1,0 +1,8 @@
+<mat-list class="chat-list-menu" *ngIf="chatList.length">
+    <ng-container  *ngFor="let chat of chatList">
+        <mat-list-item>
+            <a class="chat-list-item"  (click)="selectChat(chat.Id)">{{chat.Name}}</a>
+        </mat-list-item>
+        <mat-divider/>
+    </ng-container>
+</mat-list>
