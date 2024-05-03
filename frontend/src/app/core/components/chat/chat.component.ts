@@ -45,6 +45,7 @@ export class ChatComponent {
   public getMessages() {
     this.messageService.getChatMessages(this.Chat.Id).subscribe(
       chatMessages => {
+        console.log(chatMessages)
         this.Chat.Messages = chatMessages
       }
     );

@@ -1,9 +1,26 @@
 .connexion-content
   display: flex
+  flex-direction: column
   justify-content: center
   align-items: center
   flex-wrap: wrap
   height: 100vh // Adjust as needed
+
+  
+  .connexion-forms
+    display: flex
+    flex-direction: row
+
+    app-login, app-register
+      margin: 10px
+
+  .connexion-title
+    margin: 50px
+    font-size: 54px
+    font-weight: bold
+
+
+    
 
 .login-form, .register-form
   max-width: 300px // Adjust as needed

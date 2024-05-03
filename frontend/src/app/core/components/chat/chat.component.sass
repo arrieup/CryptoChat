@@ -1,8 +1,32 @@
 .chat-container
-    width: 100%
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
-    border-radius: 8px
+    display: flex
+    flex-direction: column
+    width: -webkit-fill-available
+    height: -webkit-fill-available
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1)
     padding: 20px
     margin: 10px
     background-color: #fff
     color: #333
+
+    .chat-header
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: space-between
+
+        .chat-name
+            font-size: 3vh
+            flex: 1
+            text-align: center
+    
+    .chat-form
+        display: flex
+        flex-direction: row
+        height: auto
+
+        textarea
+            flex: 1
+            height: auto
+
+

@@ -1,9 +1,10 @@
 .sidenav-container {
-  height: 100%;
+  height: -webkit-fill-available;
 }
 
 .sidenav {
   width: 200px;
+  margin-top: 7vh;
 }
 
 .sidenav .mat-toolbar {
@@ -12,6 +13,7 @@
 
 .mat-toolbar {
   justify-content: space-between;
+  height: 7vh;
 }
 
 .mat-toolbar.mat-primary {
@@ -19,3 +21,8 @@
   top: 0;
   z-index: 1;
 }
+
+section {
+  height: -webkit-fill-available;
+}
+

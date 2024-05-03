@@ -20,12 +20,12 @@ import { LoginComponent } from './core/components/login/login.component';
 import { RegisterComponent } from './core/components/register/register.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
 import { ConnexionPage } from './core/pages/connexion/connexion.page';
 import { ChatListComponent } from './core/components/chat-list/chat-list.component';
 import { MatListModule } from '@angular/material/list';
-import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
+import { MatBadgeModule } from '@angular/material/badge';
 import { HomeComponent } from './core/pages/home/home.component';
 
 @NgModule({
@@ -37,7 +37,6 @@ import { HomeComponent } from './core/pages/home/home.component';
         RegisterComponent,
         ConnexionPage,
         ChatListComponent,
-        ToolbarComponent,
         HomeComponent
     ],
     providers: [],
@@ -60,6 +59,7 @@ import { HomeComponent } from './core/pages/home/home.component';
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
+        MatBadgeModule,
         MatMenuModule,
         MatListModule,
         MatFormFieldModule,

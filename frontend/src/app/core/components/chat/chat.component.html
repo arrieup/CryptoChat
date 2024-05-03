@@ -1,22 +1,20 @@
-<div class="chat-container"  *ngIf="Chat.Name!=''">
-    <ul class="message-list">
+<div class="chat-container" *ngIf="Chat.Name!=''">
+    <div class="chat-header">
+        <div class="chat-name">{{ Chat.Name}}</div>
+        <button mat-icon-button #tooltip="matTooltip" matTooltip="Created by {{Chat.Creator.Username}}."
+            matTooltipPosition="left" matTooltipHideDelay="100000"
+            class="chat-info">
+            <mat-icon>information</mat-icon>
+        </button>
+    </div>
+    <ul class="chat-messages" *ngIf="Chat.Messages.length > 0">
         <li *ngFor="let message of Chat.Messages">{{ message }}</li>
     </ul>
-    <button mat-raised-button #tooltip="matTooltip"
-        matTooltip="Created by {{Chat.Creator}}."
-        matTooltipPosition="left"
-        matTooltipHideDelay="100000"
-        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-        class="example-button">
-        I
-    </button>
-    <div *ngIf="complementaryState" class="complementary-info">
-        <p>Created by {{ Chat.Creator}}.</p>
 
+    <div class="chat-form">
+        <textarea [(ngModel)]="newMessage.Content" placeholder="Type your message here..."></textarea>
+        <button mat-icon-button (click)="sendMessage()">
+            <mat-icon>send</mat-icon>
+        </button>
     </div>
-    <div class="form-group">
-        <label for="content">Message:</label>
-        <textarea id="content" [(ngModel)]="newMessage.Content" placeholder="Type your message here..."></textarea>
-      </div>
-      <button (click)="sendMessage()">Send</button>
 </div>

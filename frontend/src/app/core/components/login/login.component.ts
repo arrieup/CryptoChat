@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ConnexionService } from '../../services/connexion.service';
 import { User } from '../../models/user.model';
 import { NgForm } from '@angular/forms';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,12 @@ export class LoginComponent {
   
   @Output() loginSuccess = new EventEmitter<any>();
 
-  constructor(private conexionService : ConnexionService) { }
+  constructor(private authService : AuthenticationService) { }
 
   login() {
     const email = this.loginForm.value.email; // Read email from form
     const password = this.loginForm.value.password; // Read password from form
-    this.conexionService.login(email, password).subscribe(
+    this.authService.login(email, password).subscribe(
       data => {
         const updatedHeaders = ConnexionService.httpOptions.headers.set('Authorization', 'Bearer ' + data['user']['idToken']);
         ConnexionService.httpOptions = { headers : updatedHeaders};

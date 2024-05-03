@@ -19,13 +19,6 @@ export class MessageService {
   ) {
   }
 
-  public sendChatMessage(idChat : string, msg : Message) : Observable<number> {
-    console.log(ConnexionService.httpOptions)
-    return this.httpClient.post<number>(environment.url+"chat/"+idChat+"/messages/create/", msg, ConnexionService.httpOptions)
-    .pipe(
-      tap(_ => console.log('Message posted'))
-    );
-  }
 
   public postChat(chat : Chat) : Observable<boolean> {
     console.log(chat);
@@ -36,7 +29,7 @@ export class MessageService {
   }
 
   public getChat(id : string) : Observable<Chat>{
-    console.log(id)
+    console.log(environment.url+"chat/"+id+"/read");
     return this.httpClient.get<Chat>(environment.url+"chat/"+id+"/read", ConnexionService.httpOptions)
     .pipe(
       tap(_ => console.log('Message fetched'))
@@ -49,19 +42,28 @@ export class MessageService {
       tap(_ => console.log('All chats fetched'))
     );
   }
-
-  public getChatMessages(id: string) : Observable<Array<Message>>{
-    console.log(ConnexionService.httpOptions)
-    return this.httpClient.get<Array<Message>>(environment.url+"chat/"+id+"/messages/read", ConnexionService.httpOptions)
-    .pipe(
-      tap(_ => console.log('Chat messages fetched'))
-    );
-  }
-
+  
   public getChatMembers(id: number) : Observable<Array<User>>{
     return this.httpClient.get<Array<User>>(environment.url+"chat/"+id+"/members")
     .pipe(
       tap(_ => console.log('Chat members fetched'))
     );
   }
+
+  public getChatMessages(id: string) : Observable<Array<Message>>{
+    console.log(ConnexionService.httpOptions)
+    return this.httpClient.get<Array<Message>>(environment.url+"chat/"+id.toString()+"/messages/read", ConnexionService.httpOptions)
+    .pipe(
+      tap(_ => console.log('Chat messages fetched'))
+    );
+  }
+
+  public sendChatMessage(idChat : string, msg : Message) : Observable<number> {
+    console.log(ConnexionService.httpOptions)
+    return this.httpClient.post<number>(environment.url+"chat/"+idChat+"/messages/create/", msg, ConnexionService.httpOptions)
+    .pipe(
+      tap(_ => console.log('Message posted'))
+    );
+  }
+
 }

@@ -31,7 +31,10 @@ export class HomeComponent {
   
   public constructor(private connexionService : ConnexionService, private messageService : MessageService){
     messageService.getAllChats().subscribe(
-      chats => this.chatList = chats
+      chats => {
+        this.chatList = chats;
+        this.selectedChat = this.chatList[0] != undefined ? this.chatList[0] : new Chat();
+      }
     )
   }
 
@@ -42,6 +45,7 @@ export class HomeComponent {
   }
 
   onChatSelected(chat: Chat) {
+    this.messageService.getChat(chat.Id);
     this.selectedChat = chat;
   }
 
